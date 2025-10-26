@@ -1,0 +1,44 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: apps-virtual-service
+  namespace: networking
+spec:
+  hosts:
+    - "myapps.local"               
+  gateways:
+    - api-gateway   
+       
+  http:
+    - match:
+        - uri:
+            prefix: "/blue"
+      rewrite:
+        uri: "/"
+      route:
+        - destination:
+            host: blue-service.default.svc.cluster.local
+            port:
+              number: 9000
+    
+    - match:
+        - uri:
+            prefix: "/green"
+      rewrite:
+        uri: "/"
+      route:
+        - destination:
+            host: green-service.default.svc.cluster.local
+            port:
+              number: 9001
+
+    - match:
+        - uri:
+            prefix: "/red"
+      rewrite:
+        uri: "/"
+      route:
+        - destination:
+            host: red-service.default.svc.cluster.local
+            port:
+              number: 9002
