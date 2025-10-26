@@ -1,0 +1,58 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: blue-service-monitor
+  namespace: monitoring    
+  labels:
+    release: kube-prometheus
+spec:
+  selector:
+    matchLabels:
+      app: blue-deployment 
+  namespaceSelector:
+    matchNames:
+      - default             
+  endpoints:
+    - port: "http-port"           
+      path: /metrics      
+      interval: 15s
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor  
+metadata:
+  name: green-service-monitor
+  namespace: monitoring    
+  labels:
+    release: kube-prometheus
+spec:
+  selector:
+    matchLabels:
+      app: green-deployment
+  namespaceSelector:
+    matchNames:
+      - default
+  endpoints:
+    - port: "http-port"
+      path: /metrics
+      interval: 15s
+
+---
+apiVersion: monitoring.coreos.com/v1  
+kind: ServiceMonitor
+metadata:
+  name: red-service-monitor
+  namespace: monitoring    
+  labels:
+    release: kube-prometheus
+spec:
+  selector:
+    matchLabels:
+      app: red-deployment
+  namespaceSelector:
+    matchNames:
+      - default
+  endpoints:
+    - port: "http-port"
+      path: /metrics
+      interval: 15s

@@ -12,7 +12,7 @@ spec:
   http:
     - route:
       - destination:
-          host: prometheus-server.monitoring.svc.cluster.local
+          host: kube-prometheus-kube-prome-prometheus.monitoring.svc.cluster.local
           port:
-            number: 80
+            number: 9090
          
