@@ -2,7 +2,9 @@ import random
 from locust import HttpUser, task, between
 
 class MultiColorLoadTest(HttpUser):
-    wait_time = between(0, 0.5)
+    wait_time = between(0, 0.3)
+
+    host = "http://myapps.local:31129"
 
     paths = ["/blue", "/green", "/red"]
 
